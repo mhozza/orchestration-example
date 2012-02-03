@@ -1,0 +1,11 @@
+.metadata/*
+communication/*
+cxf-exam*/*
+example-*/*
+gps-service/*
+issue-service/*
+orchestration/*
+testBPEL/*
+mato/*
+ivan/*
+testProcess/*

@@ -11,6 +11,6 @@
 
 	<jaxws:client id="client"
 		serviceClass="com.orchestrationexample.employeeinfoservice.EmployeeInfoService"
-		address="http://localhost:9001/customer" /> 
+		address="http://localhost:9001/employeeinfo" /> 
 	
 </beans>

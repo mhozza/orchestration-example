@@ -11,11 +11,11 @@ import com.orchestrationexample.employeeinfoservice.NoSuchEmployeeException;
 import com.orchestrationexample.employeeinfoservice.Pair;
 
 @WebService(endpointInterface = "com.orchestrationexample.employeeinfoservice.EmployeeInfoService")
-public class CustomerServiceImpl implements EmployeeInfoService
+public class EmployeeInfoServiceImpl implements EmployeeInfoService
 {
 	private Map<Pair<String,String>,Employee> customers;
 	
-	public CustomerServiceImpl()
+	public EmployeeInfoServiceImpl()
 	{
 		customers = new HashMap<Pair<String,String>,Employee>();
 

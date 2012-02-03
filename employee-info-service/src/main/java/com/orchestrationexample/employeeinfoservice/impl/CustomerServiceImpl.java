@@ -8,15 +8,16 @@ import javax.jws.WebService;
 import com.orchestrationexample.employeeinfoservice.Employee;
 import com.orchestrationexample.employeeinfoservice.EmployeeInfoService;
 import com.orchestrationexample.employeeinfoservice.NoSuchEmployeeException;
+import com.orchestrationexample.employeeinfoservice.Pair;
 
 @WebService(endpointInterface = "com.orchestrationexample.employeeinfoservice.EmployeeInfoService")
 public class CustomerServiceImpl implements EmployeeInfoService
 {
-	private Map<Integer,Employee> customers;
+	private Map<Pair<String,String>,Employee> customers;
 	
 	public CustomerServiceImpl()
 	{
-		customers = new HashMap<Integer,Employee>();
+		customers = new HashMap<Pair<String,String>,Employee>();
 
 		Employee c = new Employee();
 		c.setId(1);
@@ -24,17 +25,17 @@ public class CustomerServiceImpl implements EmployeeInfoService
 		c.setSurname("Mrkvicka");
 		c.setIdDep(1);
 		
-		customers.put(c.getId(), c);
+		customers.put(new Pair<String, String>(c.getName(), c.getSurname()), c);
 	}
 	
 	@Override
-	public Employee getInformation(int id) throws NoSuchEmployeeException
+	public Employee getInformation(String name, String surname) throws NoSuchEmployeeException
 	{
-		System.out.println("getInformation called for a customer with id = " + id);
-		Employee c = customers.get(id);
+		System.out.println("getInformation called for a employee:" + name + " " + surname);
+		Employee c = customers.get(new Pair<String, String>(name, surname));
 		
 		if (c == null)
-			throw new NoSuchEmployeeException(id);
+			throw new NoSuchEmployeeException(name,surname);
 		else
 			return c;
 	}

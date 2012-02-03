@@ -5,5 +5,5 @@ import javax.jws.WebService;
 @WebService
 public interface EmployeeInfoService
 {
-	Employee getInformation(int id) throws NoSuchEmployeeException;
+	Employee getInformation(String name, String Surname) throws NoSuchEmployeeException;
 }

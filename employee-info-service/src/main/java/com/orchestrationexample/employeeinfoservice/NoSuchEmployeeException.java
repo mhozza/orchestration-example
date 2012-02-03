@@ -4,22 +4,33 @@ public class NoSuchEmployeeException extends Exception
 {
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
+	private String name, surname;
 	
-	public NoSuchEmployeeException(int id)
+	public NoSuchEmployeeException(String name, String surname)
 	{
-		super("Cannot find a customer with id = " + id);
-		this.id = id;
+		super("Cannot find a employee: " + name + " " + surname);
+		this.name = name;
+		this.surname = surname;
 	}
 
-	public int getId()
+	public String getName()
 	{
-		return id;
+		return name;
 	}
 
-	public void setId(int id)
+	public void setName(String name)
 	{
-		this.id = id;
+		this.name = name;
+	}
+
+	public String getSurname()
+	{
+		return surname;
+	}
+
+	public void setSurname(String surname)
+	{
+		this.surname = surname;
 	}
 		
 }

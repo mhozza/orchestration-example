@@ -16,14 +16,14 @@ public final class Client
 		EmployeeInfoService client = context.getBean("client", EmployeeInfoService.class);
 
 		System.out.println("Trying to find a customer with an id of 1...");
-		Employee response = client.getInformation("1");
+		Employee response = client.getInformation(1);
 		System.out.println("- response: " + response);
 
 		try
 		{
 			System.out.println();
 			System.out.println("Trying to find a customer with a (non-existing) id of 9999...");
-			Employee response2 = client.getInformation("9999");
+			Employee response2 = client.getInformation(9999);
 			System.out.println("- response: " + response2);
 		}
 		catch(Exception e)

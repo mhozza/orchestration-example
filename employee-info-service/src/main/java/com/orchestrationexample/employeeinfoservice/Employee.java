@@ -5,20 +5,16 @@ package com.orchestrationexample.employeeinfoservice;
  */
 public class Employee
 {
-	private String id;			// internal identification number of the customer
-	private String name;		// e.g. Faculty of Mathematics, Physics and Informatics, Comenius University in Bratislava
-	private Address address;	// contact address 
-	private String phone;		// contact phone
-	private String mail;		// contact mail
-	private String type;		// CORP (corporate) or PERS (person)
-	private String level;		// STANDARD, BRONZE, SILVER, GOLD, PLATINUM
-	private String account;		// e.g. a-0001
-
-	public String getId()
+	private int id;			
+	private String name;	
+	private String surname;	
+	int idDep;	
+	
+	public int getId()
 	{
 		return id;
 	}
-	public void setId(String id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}
@@ -30,65 +26,25 @@ public class Employee
 	{
 		this.name = name;
 	}
-	public Address getAddress()
+	public String getSurname()
 	{
-		return address;
+		return surname;
 	}
-	public void setAddress(Address address)
+	public void setSurname(String surname)
 	{
-		this.address = address;
+		this.surname = surname;
 	}
-	public void setAddress(String street, String zip, String city, String country)
+	public int getIdDep()
 	{
-		address = new Address();
-		address.setStreet(street);
-		address.setZip(zip);
-		address.setCity(city);
-		address.setCountry(country);
+		return idDep;
 	}
-	public String getPhone()
+	public void setIdDep(int idDep)
 	{
-		return phone;
+		this.idDep = idDep;
 	}
-	public void setPhone(String phone)
-	{
-		this.phone = phone;
-	}
-	public String getMail()
-	{
-		return mail;
-	}
-	public void setMail(String mail)
-	{
-		this.mail = mail;
-	}
-	public String getType()
-	{
-		return type;
-	}
-	public void setType(String type)
-	{
-		this.type = type;
-	}
-	public String getLevel()
-	{
-		return level;
-	}
-	public void setLevel(String level)
-	{
-		this.level = level;
-	}
-	public String getAccount()
-	{
-		return account;
-	}
-	public void setAccount(String account)
-	{
-		this.account = account;
-	}
-
+	
 	public String toString()
-	{
-		return "Employee[id=" + id + ", account=" + account + ", name=" + name + ", address=" + address + "]";
+	{		
+		return "Employee[id=" + id + ", name=" + name + ", surname=" + surname + ", idDep=" + idDep + "]";
 	}
 }

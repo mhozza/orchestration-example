@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+">
+
+	<jaxws:endpoint 
+		xmlns:registerinfo="http://registerinfo.orchestrationexample.com/"
+		id="RegisterInfoServiceHTTP" 
+		address="http://localhost:9002/registerinfo"
+		serviceName="registerinfo:RegisterInfoService" 
+		endpointName="registerinfo:RegisterInfoServiceEndpoint"
+		implementor="com.orchestrationexample.registerinfoservice.impl.RegisterInfoServiceImpl">
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+	</jaxws:endpoint>
+
+</beans>

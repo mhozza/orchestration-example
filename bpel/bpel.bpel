@@ -105,10 +105,34 @@
             </copy>
             <copy xmlns:psbx="urn:parasoft:bpel:extension">
                 <from part="parameters" variable="employeeInfoResponse">
-                    <query>/child::node()[local-name()='getInformationResponse']</query>
+                    <query>/child::node()[local-name()='getInformationResponse']/child::node()[local-name()='return']/child::node()[local-name()='id']</query>
                 </from>
                 <to part="parameters" variable="bpelResponse">
-                    <query>/child::node()[local-name()='bpelResponse']</query>
+                    <query>/child::node()[local-name()='bpelResponse']/child::node()[local-name()='id']</query>
+                </to>
+            </copy>
+            <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                <from part="parameters" variable="employeeInfoResponse">
+                    <query>/child::node()[local-name()='getInformationResponse']/child::node()[local-name()='return']/child::node()[local-name()='idDep']</query>
+                </from>
+                <to part="parameters" variable="bpelResponse">
+                    <query>/child::node()[local-name()='bpelResponse']/child::node()[local-name()='idDep']</query>
+                </to>
+            </copy>
+            <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                <from part="parameters" variable="employeeInfoResponse">
+                    <query>/child::node()[local-name()='getInformationResponse']/child::node()[local-name()='return']/child::node()[local-name()='name']</query>
+                </from>
+                <to part="parameters" variable="bpelResponse">
+                    <query>/child::node()[local-name()='bpelResponse']/child::node()[local-name()='firstName']</query>
+                </to>
+            </copy>
+            <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                <from part="parameters" variable="employeeInfoResponse">
+                    <query>/child::node()[local-name()='getInformationResponse']/child::node()[local-name()='return']/child::node()[local-name()='surname']</query>
+                </from>
+                <to part="parameters" variable="bpelResponse">
+                    <query>/child::node()[local-name()='bpelResponse']/child::node()[local-name()='lastName']</query>
                 </to>
             </copy>
         </assign>

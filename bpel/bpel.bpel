@@ -57,7 +57,8 @@
                     <copy xmlns:psbx="urn:parasoft:bpel:extension">
                         <from>
                             <literal>
-                                <ns1:getInformation xmlns="" xmlns:ns1="http://employeeinfoservice.orchestrationexample.com/">
+                                <ns1:getInformation xmlns=""
+                                    xmlns:employeeinfo="http://employeeinfoservice.orchestrationexample.com/" xmlns:ns1="http://employeeinfoservice.orchestrationexample.com/">
                                     <arg0>text</arg0>
                                     <arg1>text</arg1>
                                 </ns1:getInformation>
@@ -68,13 +69,13 @@
                     <copy xmlns:psbx="urn:parasoft:bpel:extension">
                         <from variable="firstName"/>
                         <to part="parameters" variable="employeeInfoRequest">
-                            <query>/child::node()[local-name()='getInformation']/child::node()[local-name()='arg0']</query>
+                            <query>//arg0</query>
                         </to>
                     </copy>
                     <copy xmlns:psbx="urn:parasoft:bpel:extension">
                         <from variable="lastName"/>
                         <to part="parameters" variable="employeeInfoRequest">
-                            <query>/child::node()[local-name()='getInformation']/child::node()[local-name()='arg1']</query>
+                            <query>//arg1</query>
                         </to>
                     </copy>
                 </assign>

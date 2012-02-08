@@ -27,6 +27,12 @@
         location="department.wsdl" namespace="http://departmentservice.orchestrationexample.com/"/>
     <partnerLinks>
         <partnerLink initializePartnerRole="yes"
+            myRole="EmployeeListService" name="employeeList"
+            partnerLinkType="empolyeelist:EmployeeListService" partnerRole="EmployeeListService"/>
+        <partnerLink initializePartnerRole="yes"
+            myRole="DepartmentService" name="department"
+            partnerLinkType="department:DepartmentService" partnerRole="DepartmentService"/>
+        <partnerLink initializePartnerRole="yes"
             myRole="EmployeeInfoService" name="employeeInfo"
             partnerLinkType="employeeinfo:EmployeeInfoService" partnerRole="EmployeeInfoService"/>
         <partnerLink myRole="bpel" name="bpel"
@@ -39,6 +45,8 @@
         <variable name="lastName" type="xsd:string"/>
         <variable messageType="employeeinfo:getInformation" name="employeeInfoRequest"/>
         <variable messageType="employeeinfo:getInformationResponse" name="employeeInfoResponse"/>
+        <variable messageType="department:getListFromDeptId" name="departmentRequest"/>
+        <variable messageType="department:getListFromDeptIdResponse" name="departmentResponse"/>
     </variables>
     <sequence xml:ID="2">
         <receive createInstance="yes" name="bpel" operation="bpel"
@@ -54,9 +62,9 @@
                 <to variable="lastName"/>
             </copy>
         </assign>
-        <flow xml:ID="6">
-            <sequence xml:ID="8">
-                <assign xml:ID="9">
+        <flow xml:ID="5">
+            <sequence xml:ID="6">
+                <assign xml:ID="7">
                     <copy xmlns:psbx="urn:parasoft:bpel:extension">
                         <from>
                             <literal>
@@ -86,10 +94,102 @@
                     operation="getInformation"
                     outputVariable="employeeInfoResponse"
                     partnerLink="employeeInfo"
-                    portType="employeeinfo:EmployeeInfoService" xml:ID="14"/>
+                    portType="employeeinfo:EmployeeInfoService" xml:ID="8"/>
+                <assign xml:ID="9">
+                    <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                        <from>
+                            <literal>
+                                <ns1:getListFromDeptId xmlns="" xmlns:ns1="http://departmentservice.orchestrationexample.com/">
+                                    <arg0>0</arg0>
+                                </ns1:getListFromDeptId>
+                            </literal>
+                        </from>
+                        <to part="parameters" variable="departmentRequest"/>
+                    </copy>
+                    <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                        <from
+                            xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+                            xmlns:department="http://departmentservice.orchestrationexample.com/"
+                            xmlns:employeeinfo="http://employeeinfoservice.orchestrationexample.com/"
+                            xmlns:empolyeelist="http://employeelistservice.orchestrationexample.com/"
+                            xmlns:plk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+                            xmlns:psbx="urn:parasoft:bpel:extension"
+                            xmlns:registerinfo="http://registerinfoservice.orchestrationexample.com/"
+                            xmlns:tns="urn:bpel:bpel"
+                            xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+                            xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">$employeeInfoResponse.parameters//return/idDep</from>
+                        <to part="parameters" variable="departmentRequest">
+                            <query>/child::node()[local-name()='getListFromDeptId']/child::node()[local-name()='arg0']</query>
+                        </to>
+                    </copy>
+                </assign>
+                <invoke inputVariable="departmentRequest"
+                    operation="getListFromDeptId"
+                    outputVariable="departmentResponse"
+                    partnerLink="department"
+                    portType="department:DepartmentService" xml:ID="10"/>
+                <forEach counterName="manIndex" name="getNames"
+                    parallel="no" xml:ID="11">
+                    <startCounterValue>1</startCounterValue>
+                    <finalCounterValue>count($departmentResponse.parameters/return)</finalCounterValue>
+                    <scope xml:ID="12">
+                        <variables>
+                            <variable
+                                messageType="empolyeelist:getInformation" name="employeeListRequest"/>
+                            <variable
+                                messageType="empolyeelist:getInformationResponse" name="employeeListResponse"/>
+                        </variables>
+                        <sequence xml:ID="13" xmlns:ns1="http://employeelistservice.orchestrationexample.com/">
+                            <assign xml:ID="14">
+                                <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                                    <from>
+                                    <literal>
+                                    <ns1:getInformation xmlns="" xmlns:ns1="http://employeelistservice.orchestrationexample.com/">
+                                    <arg0>0</arg0>
+                                    </ns1:getInformation>
+                                    </literal>
+                                    </from>
+                                    <to part="parameters" variable="employeeListRequest"/>
+                                </copy>
+                                <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                                    <from
+                                    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+                                    xmlns:department="http://departmentservice.orchestrationexample.com/"
+                                    xmlns:employeeinfo="http://employeeinfoservice.orchestrationexample.com/"
+                                    xmlns:empolyeelist="http://employeelistservice.orchestrationexample.com/"
+                                    xmlns:ns1="http://employeelistservice.orchestrationexample.com/"
+                                    xmlns:plk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+                                    xmlns:psbx="urn:parasoft:bpel:extension"
+                                    xmlns:registerinfo="http://registerinfoservice.orchestrationexample.com/"
+                                    xmlns:tns="urn:bpel:bpel"
+                                    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+                                    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">$departmentResponse.parameters//return/*[$manIndex]</from>
+                                    <to part="parameters" variable="employeeListRequest">
+                                    <query>/child::node()[local-name()='getInformation']/child::node()[local-name()='arg0']</query>
+                                    </to>
+                                </copy>
+                            </assign>
+                            <invoke inputVariable="employeeListRequest"
+                                operation="getInformation"
+                                outputVariable="employeeListResponse"
+                                partnerLink="employeeList"
+                                portType="ns1:EmployeeListService" xml:ID="17"/>
+                            <assign xml:ID="18">
+                                <extensionAssignOperation>
+                                    <ps:appendChild xmlns:ps="urn:parasoft:bpel">
+                                    <from>concat($employeeListResponse.parameters//name,'  ',$employeeListResponse.parameters//surname)</from>
+                                    <to part="parameters" variable="bpelResponse">
+                                    <query>/child::node()[local-name()='bpelResponse']/child::node()[local-name()='colleges']</query>
+                                    </to>
+                                    </ps:appendChild>
+                                </extensionAssignOperation>
+                            </assign>
+                        </sequence>
+                    </scope>
+                </forEach>
             </sequence>
         </flow>
-        <assign xml:ID="13">
+        <assign xml:ID="15">
             <copy xmlns:psbx="urn:parasoft:bpel:extension">
                 <from>
                     <literal>
@@ -140,6 +240,6 @@
             </copy>
         </assign>
         <reply name="bpel" operation="bpel" partnerLink="bpel"
-            portType="tns:bpelPortType" variable="bpelResponse" xml:ID="5"/>
+            portType="tns:bpelPortType" variable="bpelResponse" xml:ID="16"/>
     </sequence>
 </process>

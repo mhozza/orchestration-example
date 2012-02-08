@@ -7,6 +7,14 @@
     <wsdlMapping location="employeelist.wsdl" namespace="http://employeelistservice.orchestrationexample.com/"/>
     <wsdlMapping location="registerinfo.wsdl" namespace="http://registerinfoservice.orchestrationexample.com/"/>
     <wsdlMapping location="department.wsdl" namespace="http://departmentservice.orchestrationexample.com/"/>
+    <partnerEndpoint partnerLink="employeeList" synchronicity="synchronous">
+        <fromDefinition port="EmployeeListServiceEndpoint"
+            service="ns1:EmployeeListService" xmlns:ns1="http://employeelistservice.orchestrationexample.com/"/>
+    </partnerEndpoint>
+    <partnerEndpoint partnerLink="department" synchronicity="synchronous">
+        <fromDefinition port="DepartmentServiceEndpointHTTP"
+            service="ns1:DepartmentService" xmlns:ns1="http://departmentservice.orchestrationexample.com/"/>
+    </partnerEndpoint>
     <partnerEndpoint partnerLink="employeeInfo" synchronicity="synchronous">
         <fromDefinition port="EmployeeInfoServiceEndpoint"
             service="ns1:EmployeeInfoService" xmlns:ns1="http://employeeinfoservice.orchestrationexample.com/"/>

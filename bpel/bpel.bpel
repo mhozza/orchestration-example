@@ -26,8 +26,12 @@
         <partnerLink myRole="bpel" name="bpel" partnerLinkType="tns:bpel"/>
     </partnerLinks>
     <variables>
+        <variable name="firstName" type="xsd:string"/>
         <variable messageType="tns:bpelRequest" name="bpelRequest"/>
         <variable messageType="tns:bpelResponse" name="bpelResponse"/>
+        <variable name="lastName" type="xsd:string"/>
+        <variable messageType="employeeinfo:getInformation" name="employeeInfoRequest"/>
+        <variable messageType="empolyeelist:getInformationResponse" name="employeeInfoResponse"/>
     </variables>
     <sequence xml:ID="2">
         <receive createInstance="yes" name="bpel" operation="bpel"
@@ -35,21 +39,45 @@
             variable="bpelRequest" xml:ID="3"/>
         <assign xml:ID="4">
             <copy>
-                <from>
-                    <literal>
-                        <ns1:bpelResponse xmlns="" xmlns:ns1="urn:bpel:bpel">
-                            <id>0</id>
-                            <firstName>text</firstName>
-                            <lastName>text</lastName>
-                            <idDep>0</idDep>
-                            <isInRegister>false</isInRegister>
-                            <colleges>text</colleges>
-                        </ns1:bpelResponse>
-                    </literal>
-                </from>
-                <to part="parameters" variable="bpelResponse"/>
+                <from>$bpelRequest.parameters//firstName</from>
+                <to variable="firstName"/>
+            </copy>
+            <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                <from xmlns:psbx="urn:parasoft:bpel:extension">$bpelRequest.parameters//lastName</from>
+                <to variable="lastName"/>
             </copy>
         </assign>
+        <flow xml:ID="6">
+            <sequence xml:ID="8">
+                <assign xml:ID="9">
+                    <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                        <from>
+                            <literal/>
+                        </from>
+                        <to part="parameters" variable="employeeInfoRequest"/>
+                    </copy>
+                    <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                        <from variable="firstName"/>
+                        <to part="parameters" variable="employeeInfoRequest">
+                            <query>/child::node()[local-name()='getInformation']/child::node()[local-name()='arg0']</query>
+                        </to>
+                    </copy>
+                    <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                        <from variable="lastName"/>
+                        <to part="parameters" variable="employeeInfoRequest">
+                            <query>/child::node()[local-name()='getInformation']/child::node()[local-name()='arg1']</query>
+                        </to>
+                    </copy>
+                </assign>
+                <invoke inputVariable="employeeInfoRequest"
+                    operation="getInformation"
+                    outputVariable="employeeInfoResponse" xml:ID="11"/>
+            </sequence>
+            <sequence xml:ID="7">
+                <assign xml:ID="10"/>
+                <invoke xml:ID="12"/>
+            </sequence>
+        </flow>
         <reply name="bpel" operation="bpel" partnerLink="bpel"
             portType="tns:bpelPortType" variable="bpelResponse" xml:ID="5"/>
     </sequence>

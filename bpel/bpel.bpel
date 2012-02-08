@@ -23,7 +23,11 @@
     <import importType="http://schemas.xmlsoap.org/wsdl/"
         location="employeelist.wsdl" namespace="http://employeelistservice.orchestrationexample.com/"/>
     <partnerLinks>
-        <partnerLink myRole="bpel" name="bpel" partnerLinkType="tns:bpel"/>
+        <partnerLink initializePartnerRole="yes"
+            myRole="EmployeeInfoService" name="employeeInfo"
+            partnerLinkType="employeeinfo:EmployeeInfoService" partnerRole="EmployeeInfoService"/>
+        <partnerLink initializePartnerRole="yes" myRole="bpel"
+            name="bpel" partnerLinkType="tns:bpel" partnerRole="bpel"/>
     </partnerLinks>
     <variables>
         <variable name="firstName" type="xsd:string"/>
@@ -31,7 +35,7 @@
         <variable messageType="tns:bpelResponse" name="bpelResponse"/>
         <variable name="lastName" type="xsd:string"/>
         <variable messageType="employeeinfo:getInformation" name="employeeInfoRequest"/>
-        <variable messageType="empolyeelist:getInformationResponse" name="employeeInfoResponse"/>
+        <variable messageType="employeeinfo:getInformationResponse" name="employeeInfoResponse"/>
     </variables>
     <sequence xml:ID="2">
         <receive createInstance="yes" name="bpel" operation="bpel"
@@ -71,13 +75,37 @@
                 </assign>
                 <invoke inputVariable="employeeInfoRequest"
                     operation="getInformation"
-                    outputVariable="employeeInfoResponse" xml:ID="11"/>
-            </sequence>
-            <sequence xml:ID="7">
-                <assign xml:ID="10"/>
-                <invoke xml:ID="12"/>
+                    outputVariable="employeeInfoResponse"
+                    partnerLink="employeeInfo"
+                    portType="EmployeeInfoService" xml:ID="11"/>
             </sequence>
         </flow>
+        <assign xml:ID="13">
+            <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                <from>
+                    <literal>
+                        <ns1:bpelResponse xmlns=""
+                            xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="urn:bpel:bpel">
+                            <id>0</id>
+                            <firstName>text</firstName>
+                            <lastName>text</lastName>
+                            <idDep>0</idDep>
+                            <isInRegister>false</isInRegister>
+                            <colleges>text</colleges>
+                        </ns1:bpelResponse>
+                    </literal>
+                </from>
+                <to part="parameters" variable="bpelResponse"/>
+            </copy>
+            <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                <from part="parameters" variable="employeeInfoResponse">
+                    <query>/child::node()[local-name()='getInformationResponse']</query>
+                </from>
+                <to part="parameters" variable="bpelResponse">
+                    <query>/child::node()[local-name()='bpelResponse']</query>
+                </to>
+            </copy>
+        </assign>
         <reply name="bpel" operation="bpel" partnerLink="bpel"
             portType="tns:bpelPortType" variable="bpelResponse" xml:ID="5"/>
     </sequence>

@@ -23,18 +23,19 @@
 <scenario create-xq-info="Parameter-Based" name="BPELService_default" type="Default">
 <scenario-operation name="Default">
 <input-values>
+
 <part-values name="parameters">
 <input-property>File</input-property>
 <input-value>sonicfs:///workspace/bpel/t.xml</input-value>
-<input-type>getInformation[http://employeeinfoservice.orchestrationexample.com/]</input-type>
+<input-type>bpel[urn:bpel:bpel]</input-type>
 </part-values>
 </input-values>
 </scenario-operation>
 <run-on>Test ESBContainer RunHandler</run-on>
 <servcie-input>
 <process-name>bpel</process-name>
-<partner-link>employeeInfo</partner-link>
-<operation>getInformation</operation>
+<partner-link>bpel</partner-link>
+<operation>bpel</operation>
 </servcie-input>
 <problems/>
 </scenario>

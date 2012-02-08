@@ -26,6 +26,22 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService
 		c.setIdDep(0);
 		
 		customers.put(new Pair<String, String>(c.getName(), c.getSurname()), c);
+		
+		c = new Employee();
+		c.setId(2);
+		c.setName("Ferko");
+		c.setSurname("Mrkvicka");
+		c.setIdDep(0);
+		
+		customers.put(new Pair<String, String>(c.getName(), c.getSurname()), c);
+		
+		c = new Employee();
+		c.setId(3);
+		c.setName("Gertruda");
+		c.setSurname("Mrkvickova");
+		c.setIdDep(0);
+		
+		customers.put(new Pair<String, String>(c.getName(), c.getSurname()), c);
 	}
 	
 	@Override

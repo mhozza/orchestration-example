@@ -25,6 +25,22 @@ public class EmployeeListServiceImpl implements EmployeeListService
 		c.setIdDep(0);
 		
 		customers.put(c.getId(), c);
+		
+		c = new Employee();
+		c.setId(2);
+		c.setName("Ferko");
+		c.setSurname("Mrkvicka");
+		c.setIdDep(0);
+		
+		customers.put(c.getId(), c);
+		
+		c = new Employee();
+		c.setId(3);
+		c.setName("Gertruda");
+		c.setSurname("Mrkvickova");
+		c.setIdDep(0);
+		
+		customers.put(c.getId(), c);
 	}
 	
 	@Override

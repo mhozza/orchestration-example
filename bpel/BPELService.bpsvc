@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<bpelService xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sonicsw.com/sonicesb/bpelservice">
+<xq:service type_ref="BPELServiceType" name="bpel" xmlns:xq="http://www.sonicsw.com/sonicxq">
+<xq:entry_ref>bpel.Entry</xq:entry_ref>
+<xq:exitEndpoint_list>
+<xq:exitEndpoint endpoint_ref="REPLY_TO" type="REPLY_TO"/>
+</xq:exitEndpoint_list>
+<xq:faultEndpoint endpoint_ref="REPLY_TO" type="REPLY_TO"/>
+<xq:rejectEndpoint endpoint_ref="dev.RME" type="ENDPOINT"/>
+<xq:params>
+    <stringParam name="bparURL" url="sonicfs:///workspace/bpel/lib/bpel.bpar"></stringParam>
+    <stringParam name="stagingDir">./bpel_staging</stringParam>
+    <xmlParam name="persistence">
+        <enginePersistence xmlns="http://www.sonicsw.com/esb/service/bpel">
+            <database type="default"/>
+        </enginePersistence>
+    </xmlParam>
+    <stringParam name='enableAuditTrails'>true</stringParam>
+</xq:params>
+</xq:service>
+</bpelService>

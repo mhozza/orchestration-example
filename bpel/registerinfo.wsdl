@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="RegisterInfoService"
+    targetNamespace="http://registerinfoservice.orchestrationexample.com/"
+    xmlns="" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+    xmlns:ns2="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://registerinfoservice.orchestrationexample.com/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <ns2:partnerLinkType name="RegisterInfoService">
+        <ns2:role name="RegisterInfoService" portType="tns:RegisterInfoService"/>
+    </ns2:partnerLinkType>
+    <wsdl:types>
+        <xs:schema
+            targetNamespace="http://registerinfoservice.orchestrationexample.com/"
+            version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:element name="checkPerson">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name" type="xs:string"/>
+                        <xs:element name="surname" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="checkPersonResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="response" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="checkPersonResponse">
+        <wsdl:part element="tns:checkPersonResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="checkPerson">
+        <wsdl:part element="tns:checkPerson" name="parameters"/>
+    </wsdl:message>
+    <wsdl:portType name="RegisterInfoService">
+        <wsdl:operation name="checkPerson">
+            <wsdl:input message="tns:checkPerson" name="checkPerson"/>
+            <wsdl:output message="tns:checkPersonResponse" name="checkPersonResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="RegisterInfoServiceSoapBinding" type="tns:RegisterInfoService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="checkPerson">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="checkPerson">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="checkPersonResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="RegisterInfoService">
+        <wsdl:port binding="tns:RegisterInfoServiceSoapBinding" name="RegisterInfoServiceEndpoint">
+            <soap:address location="http://localhost:9002/registerinfo"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

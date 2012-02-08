@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:bpel:bpel"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:employeeinfo="http://employeeinfoservice.orchestrationexample.com/"
+    xmlns:empolyeelist="http://employeelistservice.orchestrationexample.com/"
+    xmlns:plk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    xmlns:psbx="urn:parasoft:bpel:extension"
+    xmlns:registerinfo="http://registerinfoservice.orchestrationexample.com/"
+    xmlns:tns="urn:bpel:bpel"
+    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <types>
+        <xsd:schema targetNamespace="urn:bpel:bpel" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="bpel">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="firstName" type="ns1:string" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
+                        <xsd:element name="lastName" type="ns1:string" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="bpelResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="id" type="ns1:int" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
+                        <xsd:element name="firstName" type="ns1:string" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
+                        <xsd:element name="lastName" type="ns1:string" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
+                        <xsd:element name="idDep" type="ns1:int" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
+                        <xsd:element name="isInRegister"
+                            type="ns1:boolean" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0"
+                            name="colleges" type="ns1:string" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+    <message name="bpelRequest">
+        <part element="tns:bpel" name="parameters"/>
+    </message>
+    <message name="bpelResponse">
+        <part element="tns:bpelResponse" name="parameters"/>
+    </message>
+    <portType name="bpelPortType">
+        <operation name="bpel">
+            <input message="tns:bpelRequest"/>
+            <output message="tns:bpelResponse"/>
+        </operation>
+    </portType>
+    <plnk:partnerLinkType name="bpel" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+        <plnk:role name="bpel" portType="ns1:bpelPortType" xmlns:ns1="urn:bpel:bpel"/>
+    </plnk:partnerLinkType>
+</definitions>

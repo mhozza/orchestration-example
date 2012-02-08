@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="EmployeeInfoService"
+    targetNamespace="http://employeeinfoservice.orchestrationexample.com/"
+    xmlns="" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+    xmlns:ns2="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://employeeinfoservice.orchestrationexample.com/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <ns2:partnerLinkType name="EmployeeInfoService">
+        <ns2:role name="EmployeeInfoService" portType="tns:EmployeeInfoService"/>
+    </ns2:partnerLinkType>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="unqualified"
+            elementFormDefault="unqualified"
+            targetNamespace="http://employeeinfoservice.orchestrationexample.com/"
+            xmlns:tns="http://employeeinfoservice.orchestrationexample.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:element name="getInformation" type="tns:getInformation"/>
+            <xs:element name="getInformationResponse" type="tns:getInformationResponse"/>
+            <xs:complexType name="getInformation">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+                    <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getInformationResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:employee"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="employee">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int"/>
+                    <xs:element name="idDep" type="xs:int"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="surname" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="NoSuchEmployeeException" type="tns:NoSuchEmployeeException"/>
+            <xs:complexType name="NoSuchEmployeeException">
+                <xs:sequence>
+                    <xs:element name="surname" nillable="true" type="xs:string"/>
+                    <xs:element name="name" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="NoSuchEmployeeException">
+        <wsdl:part element="tns:NoSuchEmployeeException" name="NoSuchEmployeeException"/>
+    </wsdl:message>
+    <wsdl:message name="getInformation">
+        <wsdl:part element="tns:getInformation" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getInformationResponse">
+        <wsdl:part element="tns:getInformationResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:portType name="EmployeeInfoService">
+        <wsdl:operation name="getInformation">
+            <wsdl:input message="tns:getInformation" name="getInformation"/>
+            <wsdl:output message="tns:getInformationResponse" name="getInformationResponse"/>
+            <wsdl:fault message="tns:NoSuchEmployeeException" name="NoSuchEmployeeException"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="EmployeeInfoServiceSoapBinding" type="tns:EmployeeInfoService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getInformation">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="getInformation">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getInformationResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="NoSuchEmployeeException">
+                <soap:fault name="NoSuchEmployeeException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EmployeeInfoService">
+        <wsdl:port binding="tns:EmployeeInfoServiceSoapBinding" name="EmployeeInfoServiceEndpoint">
+            <soap:address location="http://localhost:9001/employeeinfo/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -56,7 +56,12 @@
                 <assign xml:ID="9">
                     <copy xmlns:psbx="urn:parasoft:bpel:extension">
                         <from>
-                            <literal/>
+                            <literal>
+                                <ns1:getInformation xmlns="" xmlns:ns1="http://employeeinfoservice.orchestrationexample.com/">
+                                    <arg0>text</arg0>
+                                    <arg1>text</arg1>
+                                </ns1:getInformation>
+                            </literal>
                         </from>
                         <to part="parameters" variable="employeeInfoRequest"/>
                     </copy>

@@ -6,6 +6,7 @@
     <wsdlMapping location="employeeinfo.wsdl" namespace="http://employeeinfoservice.orchestrationexample.com/"/>
     <wsdlMapping location="employeelist.wsdl" namespace="http://employeelistservice.orchestrationexample.com/"/>
     <wsdlMapping location="registerinfo.wsdl" namespace="http://registerinfoservice.orchestrationexample.com/"/>
+    <wsdlMapping location="department.wsdl" namespace="http://departmentservice.orchestrationexample.com/"/>
     <partnerEndpoint partnerLink="employeeInfo" synchronicity="synchronous">
         <fromDefinition port="EmployeeInfoServiceEndpoint"
             service="ns1:EmployeeInfoService" xmlns:ns1="http://employeeinfoservice.orchestrationexample.com/"/>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="DepartmentService"
+    targetNamespace="http://departmentservice.orchestrationexample.com/"
+    xmlns="" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+    xmlns:ns2="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://departmentservice.orchestrationexample.com/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <ns2:partnerLinkType name="DepartmentService">
+        <ns2:role name="DepartmentService" portType="tns:DepartmentService"/>
+    </ns2:partnerLinkType>
+    <wsdl:types>
+        <xs:schema elementFormDefault="unqualified"
+            targetNamespace="http://departmentservice.orchestrationexample.com/"
+            version="1.0"
+            xmlns:tns="http://departmentservice.orchestrationexample.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:element name="getListFromDeptId" type="tns:getListFromDeptId"/>
+            <xs:element name="getListFromDeptIdResponse" type="tns:getListFromDeptIdResponse"/>
+            <xs:complexType name="getListFromDeptId">
+                <xs:sequence>
+                    <xs:element name="arg0" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getListFromDeptIdResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0"
+                        name="return" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getListFromDeptId">
+        <wsdl:part element="tns:getListFromDeptId" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="getListFromDeptIdResponse">
+        <wsdl:part element="tns:getListFromDeptIdResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:portType name="DepartmentService">
+        <wsdl:operation name="getListFromDeptId">
+            <wsdl:input message="tns:getListFromDeptId" name="getListFromDeptId"/>
+            <wsdl:output message="tns:getListFromDeptIdResponse" name="getListFromDeptIdResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DepartmentServiceSoapBinding" type="tns:DepartmentService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getListFromDeptId">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="getListFromDeptId">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getListFromDeptIdResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DepartmentService">
+        <wsdl:port binding="tns:DepartmentServiceSoapBinding" name="DepartmentServiceEndpointHTTP">
+            <soap:address location="http://localhost:9004/department/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

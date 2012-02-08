@@ -22,7 +22,7 @@ public class EmployeeListServiceImpl implements EmployeeListService
 		c.setId(1);
 		c.setName("Jozko");
 		c.setSurname("Mrkvicka");
-		c.setIdDep(1);
+		c.setIdDep(0);
 		
 		customers.put(c.getId(), c);
 	}

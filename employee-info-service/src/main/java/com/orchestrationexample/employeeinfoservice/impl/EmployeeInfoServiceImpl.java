@@ -23,7 +23,7 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService
 		c.setId(1);
 		c.setName("Jozko");
 		c.setSurname("Mrkvicka");
-		c.setIdDep(1);
+		c.setIdDep(0);
 		
 		customers.put(new Pair<String, String>(c.getName(), c.getSurname()), c);
 	}

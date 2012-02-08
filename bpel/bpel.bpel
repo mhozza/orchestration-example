@@ -27,6 +27,9 @@
         location="department.wsdl" namespace="http://departmentservice.orchestrationexample.com/"/>
     <partnerLinks>
         <partnerLink initializePartnerRole="yes"
+            myRole="RegisterInfoService" name="registerInfo"
+            partnerLinkType="registerinfo:RegisterInfoService" partnerRole="RegisterInfoService"/>
+        <partnerLink initializePartnerRole="yes"
             myRole="EmployeeListService" name="employeeList"
             partnerLinkType="empolyeelist:EmployeeListService" partnerRole="EmployeeListService"/>
         <partnerLink initializePartnerRole="yes"
@@ -39,6 +42,7 @@
             partnerLinkType="tns:bpel" partnerRole="bpel"/>
     </partnerLinks>
     <variables>
+        <variable messageType="registerinfo:checkPerson" name="registerRequest"/>
         <variable name="firstName" type="xsd:string"/>
         <variable messageType="tns:bpelRequest" name="bpelRequest"/>
         <variable messageType="tns:bpelResponse" name="bpelResponse"/>
@@ -50,6 +54,8 @@
         <variable name="collegues" type="xsd:string">
             <from>''</from>
         </variable>
+        <variable messageType="registerinfo:checkPersonResponse" name="registerResponse"/>
+        <variable name="inRegister" type="xsd:string"/>
     </variables>
     <sequence xml:ID="2">
         <receive createInstance="yes" name="bpel" operation="bpel"
@@ -76,6 +82,56 @@
             </copy>
         </assign>
         <flow xml:ID="5">
+            <sequence xml:ID="19">
+                <assign xml:ID="20">
+                    <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                        <from>
+                            <literal>
+                                <ns1:checkPerson xmlns=""
+                                    xmlns:ns1="http://registerinfoservice.orchestrationexample.com/" xmlns:registerinfo="http://registerinfoservice.orchestrationexample.com/">
+                                    <name>text</name>
+                                    <surname>text</surname>
+                                </ns1:checkPerson>
+                            </literal>
+                        </from>
+                        <to part="parameters" variable="registerRequest"/>
+                    </copy>
+                    <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                        <from variable="firstName"/>
+                        <to part="parameters" variable="registerRequest">
+                            <query>/child::node()[local-name()='checkPerson']/child::node()[local-name()='name']</query>
+                        </to>
+                    </copy>
+                    <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                        <from variable="lastName"/>
+                        <to part="parameters" variable="registerRequest">
+                            <query>/child::node()[local-name()='checkPerson']/child::node()[local-name()='surname']</query>
+                        </to>
+                    </copy>
+                </assign>
+                <invoke inputVariable="registerRequest"
+                    operation="checkPerson"
+                    outputVariable="registerResponse"
+                    partnerLink="registerInfo"
+                    portType="registerinfo:RegisterInfoService" xml:ID="21"/>
+                <if xml:ID="22">
+                    <condition>$registerResponse.parameters//response</condition>
+                    <assign xml:ID="23">
+                        <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                            <from>'Is in register'</from>
+                            <to variable="inRegister"/>
+                        </copy>
+                    </assign>
+                    <else>
+                        <assign xml:ID="24">
+                            <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                                <from>'Not in register'</from>
+                                <to variable="inRegister"/>
+                            </copy>
+                        </assign>
+                    </else>
+                </if>
+            </sequence>
             <sequence xml:ID="6">
                 <assign xml:ID="7">
                     <copy xmlns:psbx="urn:parasoft:bpel:extension">
@@ -262,6 +318,12 @@
                 <from variable="collegues"/>
                 <to part="parameters" variable="bpelResponse">
                     <query>/child::node()[local-name()='bpelResponse']/child::node()[local-name()='colleges']</query>
+                </to>
+            </copy>
+            <copy xmlns:psbx="urn:parasoft:bpel:extension">
+                <from variable="inRegister"/>
+                <to part="parameters" variable="bpelResponse">
+                    <query>/child::node()[local-name()='bpelResponse']/child::node()[local-name()='isInRegister']</query>
                 </to>
             </copy>
         </assign>

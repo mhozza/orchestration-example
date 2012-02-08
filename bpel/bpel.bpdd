@@ -11,6 +11,10 @@
         <fromDefinition port="EmployeeListServiceEndpoint"
             service="ns1:EmployeeListService" xmlns:ns1="http://employeelistservice.orchestrationexample.com/"/>
     </partnerEndpoint>
+    <partnerEndpoint partnerLink="registerInfo" synchronicity="synchronous">
+        <fromDefinition port="RegisterInfoServiceEndpoint"
+            service="ns1:RegisterInfoService" xmlns:ns1="http://registerinfoservice.orchestrationexample.com/"/>
+    </partnerEndpoint>
     <partnerEndpoint partnerLink="department" synchronicity="synchronous">
         <fromDefinition port="DepartmentServiceEndpointHTTP"
             service="ns1:DepartmentService" xmlns:ns1="http://departmentservice.orchestrationexample.com/"/>

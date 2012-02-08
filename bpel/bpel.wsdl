@@ -29,7 +29,7 @@
                         <xsd:element name="lastName" type="ns1:string" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
                         <xsd:element name="idDep" type="ns1:int" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
                         <xsd:element name="isInRegister"
-                            type="ns1:boolean" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
+                            type="ns1:string" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
                         <xsd:element maxOccurs="unbounded" minOccurs="0"
                             name="colleges" type="ns1:string" xmlns:ns1="http://www.w3.org/2001/XMLSchema"/>
                     </xsd:sequence>

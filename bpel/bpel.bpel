@@ -6,6 +6,7 @@
     targetNamespace="urn:bpel:bpel" xml:ID="1"
     xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
     xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:department="http://departmentservice.orchestrationexample.com/"
     xmlns:employeeinfo="http://employeeinfoservice.orchestrationexample.com/"
     xmlns:empolyeelist="http://employeelistservice.orchestrationexample.com/"
     xmlns:plk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
@@ -22,6 +23,8 @@
         location="bpel.wsdl" namespace="urn:bpel:bpel"/>
     <import importType="http://schemas.xmlsoap.org/wsdl/"
         location="employeelist.wsdl" namespace="http://employeelistservice.orchestrationexample.com/"/>
+    <import importType="http://schemas.xmlsoap.org/wsdl/"
+        location="department.wsdl" namespace="http://departmentservice.orchestrationexample.com/"/>
     <partnerLinks>
         <partnerLink initializePartnerRole="yes"
             myRole="EmployeeInfoService" name="employeeInfo"

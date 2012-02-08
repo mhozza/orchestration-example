@@ -26,8 +26,8 @@
         <partnerLink initializePartnerRole="yes"
             myRole="EmployeeInfoService" name="employeeInfo"
             partnerLinkType="employeeinfo:EmployeeInfoService" partnerRole="EmployeeInfoService"/>
-        <partnerLink initializePartnerRole="yes" myRole="bpel"
-            name="bpel" partnerLinkType="tns:bpel" partnerRole="bpel"/>
+        <partnerLink myRole="bpel" name="bpel"
+            partnerLinkType="tns:bpel" partnerRole="bpel"/>
     </partnerLinks>
     <variables>
         <variable name="firstName" type="xsd:string"/>
@@ -77,7 +77,7 @@
                     operation="getInformation"
                     outputVariable="employeeInfoResponse"
                     partnerLink="employeeInfo"
-                    portType="EmployeeInfoService" xml:ID="11"/>
+                    portType="employeeinfo:EmployeeInfoService" xml:ID="14"/>
             </sequence>
         </flow>
         <assign xml:ID="13">

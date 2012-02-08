@@ -7,10 +7,10 @@
 		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
 ">
 
-	<jaxws:endpoint id="EmployeeInfoHTTP" 
-		xmlns:employeelist="http://employeeinfoservice.orchestrationexample.com/"
-		serviceName="employeelist:EmployeeInfoService" 
-		endpointName="employeelist:EmployeeInfoServiceEndpoint"
+	<jaxws:endpoint id="EmployeeListHTTP" 
+		xmlns:employeelist="http://employeelistservice.orchestrationexample.com/"
+		serviceName="employeelist:EmployeeListService" 
+		endpointName="employeelist:EmployeeListServiceEndpoint"
 		implementor="com.orchestrationexample.employeelistservice.impl.EmployeeListServiceImpl"
     	address="http://localhost:9003/employeelist">
 		<jaxws:features>

@@ -30,19 +30,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CheckPerson }
-     * 
-     */
-    public CheckPerson createCheckPerson() {
-        return new CheckPerson();
-    }
-
-    /**
      * Create an instance of {@link CheckPersonResponse }
      * 
      */
     public CheckPersonResponse createCheckPersonResponse() {
         return new CheckPersonResponse();
+    }
+
+    /**
+     * Create an instance of {@link CheckPerson }
+     * 
+     */
+    public CheckPerson createCheckPerson() {
+        return new CheckPerson();
     }
 
 }

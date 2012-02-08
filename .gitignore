@@ -9,6 +9,8 @@ testBPEL/*
 mato/*
 ivan/*
 testProcess/*
+employee-info-service/target/classes/*
+employee-list-service/target/classes/*
+register-info-service/target/classes/*
 
-employee-info-service/target/classes/com/
-employee-list-service/target/classes/com/
+

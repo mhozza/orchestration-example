@@ -8,7 +8,7 @@
 ">
 
 	<jaxws:endpoint 
-		xmlns:registerinfo="http://registerinfo.orchestrationexample.com/"
+		xmlns:registerinfo="http://registerinfoservice.orchestrationexample.com/"
 		id="RegisterInfoServiceHTTP" 
 		address="http://localhost:9002/registerinfo"
 		serviceName="registerinfo:RegisterInfoService" 
